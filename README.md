@@ -1,1 +1,2 @@
-A mobile App by using Kotlin.
+# LazyBone
+A workout mobile app by using Kotlin
