@@ -13,23 +13,27 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.lazybone.main.ui.viewModel.DateViewModel
+import androidx.navigation.NavController
+import com.example.lazybone.main.ui.navigation.NavRoutes
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DateSelector(viewModel: DateViewModel = viewModel()) {
+fun DateSelector(
+    selectedDate: LocalDate,
+    navController: NavController,
+    today: LocalDate
+) {
 
-    val selectedDate by viewModel.selectedDate // Get date from ViewModel
     val formatter = DateTimeFormatter.ofPattern("EEEE, MMM dd")
+    val formattedDate = selectedDate.format(formatter)
 
     Box(
         modifier = Modifier.drawBehind {
@@ -44,17 +48,36 @@ fun DateSelector(viewModel: DateViewModel = viewModel()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
-            IconButton(onClick = { viewModel.changeDate(-1) }) {
+            IconButton(onClick = {
+                val newDate = selectedDate.minusDays(1)
+                navController.navigate(NavRoutes.mainRoute(newDate)) {
+                    popUpTo("main") { inclusive = true }
+                }
+            }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = "previous date"
                 )
             }
-            Text(selectedDate.format(formatter))
-            IconButton(onClick = { viewModel.changeDate(1) }) {
+
+            Text(
+                text = when (selectedDate) {
+                    today -> "Today"
+                    today.minusDays(1) -> "Yesterday"
+                    today.plusDays(1) -> "Tomorrow"
+                    else -> formattedDate
+                }
+
+            )
+
+            IconButton(onClick = {
+                val newDate = selectedDate.plusDays(1)
+                navController.navigate(NavRoutes.mainRoute(newDate)) {
+                    popUpTo("main") { inclusive = true }
+                }
+            }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                     contentDescription = "next date"
