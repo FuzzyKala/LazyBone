@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.lazybone.main.ui.navigation.AppNavController
-import com.example.lazybone.ui.theme.LazyBoneTheme
+import com.example.lazybone.main.ui.theme.LazyBoneTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

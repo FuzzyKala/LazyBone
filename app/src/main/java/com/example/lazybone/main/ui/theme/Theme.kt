@@ -1,4 +1,4 @@
-package com.example.lazybone.ui.theme
+package com.example.lazybone.main.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
