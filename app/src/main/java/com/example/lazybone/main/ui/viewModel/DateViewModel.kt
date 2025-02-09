@@ -12,9 +12,16 @@ class DateViewModel : ViewModel() {
     private val _today = mutableStateOf(LocalDate.now())
 
     @RequiresApi(Build.VERSION_CODES.O)
+    private val _selectedDate = mutableStateOf(LocalDate.now())
+
+    @RequiresApi(Build.VERSION_CODES.O)
     val today: State<LocalDate> = _today
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    fun resetToToday() {
-//        _today.value = LocalDate.now()
-//    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val selectedDate: State<LocalDate> = _selectedDate
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun setSelectedDate(date: LocalDate) {
+        _selectedDate.value = date
+    }
 }

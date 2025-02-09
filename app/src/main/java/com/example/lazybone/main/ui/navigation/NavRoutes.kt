@@ -1,7 +1,5 @@
 package com.example.lazybone.main.ui.navigation
 
-import java.time.LocalDate
-
 sealed class NavRoutes(val route: String) {
 
     data object Calendar : NavRoutes("calendar")
@@ -9,6 +7,6 @@ sealed class NavRoutes(val route: String) {
     data object Settings : NavRoutes("setting")
 
     companion object {
-        fun mainRoute(date: LocalDate): String = "main/${date}"
+        fun mainRoute(date: String): String = "main/${date}"
     }
 }

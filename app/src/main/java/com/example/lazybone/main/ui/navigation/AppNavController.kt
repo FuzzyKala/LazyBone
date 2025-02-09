@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,43 +19,52 @@ import com.example.lazybone.main.ui.screens.SettingsScreen
 import com.example.lazybone.main.ui.viewModel.DateViewModel
 import java.time.LocalDate
 
+val LocalDateViewModel = compositionLocalOf<DateViewModel> { error("No DateViewModel provided") }
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AppNavController(dateViewModel: DateViewModel = viewModel()) {
+fun AppNavController() {
 
     val navController = rememberNavController()
+    val dateViewModel: DateViewModel = viewModel()
 
-    NavHost(
-        navController = navController,
-        startDestination = NavRoutes.mainRoute(LocalDate.now())
-    ) {
-        composable(
-            route = "main/{date}",
-            arguments = listOf(navArgument("date") { defaultValue = LocalDate.now().toString() }),
-        ) { backStackEntry ->
-            val dateString = backStackEntry.arguments?.getString("date")
-            val selectedDate = LocalDate.parse(dateString)
-            MainScreen(navController, selectedDate, dateViewModel)
+    CompositionLocalProvider(LocalDateViewModel provides dateViewModel) {
+        NavHost(
+            navController = navController,
+            startDestination = NavRoutes.mainRoute(dateViewModel.today.value.toString())
+        ) {
+            composable(
+                route = "main/{date}",
+                arguments = listOf(navArgument("date") {
+                    defaultValue = dateViewModel.today.value.toString()
+                }),
+            ) { backStackEntry ->
+                val dateString = backStackEntry.arguments?.getString("date")
+                    ?: dateViewModel.today.value.toString()
+
+                dateViewModel.setSelectedDate(LocalDate.parse(dateString))
+                MainScreen(navController)
+            }
+
+
+            composable(
+                route = NavRoutes.Calendar.route,
+                enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+                exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
+            ) { CalendarScreen(navController) }
+
+            composable(
+                route = NavRoutes.Exercise.route,
+                enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+                exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
+            ) { ExerciseScreen(navController) }
+
+            composable(
+                route = NavRoutes.Settings.route,
+                enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+                exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
+            ) { SettingsScreen(navController) }
         }
-
-
-        composable(
-            route = NavRoutes.Calendar.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { CalendarScreen(navController) }
-
-        composable(
-            route = NavRoutes.Exercise.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { ExerciseScreen(navController) }
-
-        composable(
-            route = NavRoutes.Settings.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { SettingsScreen(navController) }
     }
+
 }

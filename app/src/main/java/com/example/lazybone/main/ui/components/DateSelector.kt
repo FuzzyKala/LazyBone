@@ -20,17 +20,21 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.lazybone.main.ui.navigation.LocalDateViewModel
 import com.example.lazybone.main.ui.navigation.NavRoutes
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DateSelector(
-    selectedDate: LocalDate,
+
     navController: NavController,
-    today: LocalDate
+//    selectedDate: LocalDate,
+//    today: LocalDate
 ) {
+    val dateViewModel = LocalDateViewModel.current
+    val today = dateViewModel.today.value
+    val selectedDate = dateViewModel.selectedDate.value
 
     val formatter = DateTimeFormatter.ofPattern("EEEE, MMM dd")
     val formattedDate = selectedDate.format(formatter)
@@ -52,8 +56,11 @@ fun DateSelector(
         ) {
             IconButton(onClick = {
                 val newDate = selectedDate.minusDays(1)
-                navController.navigate(NavRoutes.mainRoute(newDate)) {
-                    popUpTo("main") { inclusive = true }
+                if (newDate != selectedDate) {
+                    dateViewModel.setSelectedDate(newDate)
+                    navController.navigate(NavRoutes.mainRoute(newDate.toString())) {
+                        popUpTo("main") { inclusive = true }
+                    }
                 }
             }) {
                 Icon(
@@ -74,8 +81,11 @@ fun DateSelector(
 
             IconButton(onClick = {
                 val newDate = selectedDate.plusDays(1)
-                navController.navigate(NavRoutes.mainRoute(newDate)) {
-                    popUpTo("main") { inclusive = true }
+                if (newDate != selectedDate) {
+                    dateViewModel.setSelectedDate(newDate)
+                    navController.navigate(NavRoutes.mainRoute(newDate.toString())) {
+                        popUpTo("main") { inclusive = true }
+                    }
                 }
             }) {
                 Icon(
