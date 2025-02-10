@@ -8,5 +8,6 @@ sealed class NavRoutes(val route: String) {
 
     companion object {
         fun mainRoute(date: String): String = "main/${date}"
+//        fun exerciseRoute(date: String): String = "exercise/bodyPart"
     }
 }
