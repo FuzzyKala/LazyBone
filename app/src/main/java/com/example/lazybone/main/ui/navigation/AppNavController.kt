@@ -16,6 +16,7 @@ import com.example.lazybone.main.api.ExerciseRepository
 import com.example.lazybone.main.api.ExerciseViewModelFactory
 import com.example.lazybone.main.api.RetrofitInstance
 import com.example.lazybone.main.ui.screens.CalendarScreen
+import com.example.lazybone.main.ui.screens.ExerciseListScreen
 import com.example.lazybone.main.ui.screens.ExerciseScreen
 import com.example.lazybone.main.ui.screens.MainScreen
 import com.example.lazybone.main.ui.screens.SettingsScreen
@@ -33,7 +34,6 @@ fun AppNavController() {
 
     val navController = rememberNavController()
     val dateViewModel: DateViewModel = viewModel()
-
 
     val exerciseRepository = ExerciseRepository(RetrofitInstance.api)
 
@@ -57,7 +57,6 @@ fun AppNavController() {
             ) { backStackEntry ->
                 val dateString = backStackEntry.arguments?.getString("date")
                     ?: dateViewModel.today.value.toString()
-
                 dateViewModel.setSelectedDate(LocalDate.parse(dateString))
                 MainScreen(navController)
             }
@@ -69,10 +68,14 @@ fun AppNavController() {
             ) { ExerciseScreen(navController) }
 
 
-//            composable(
-//                route = "exercise/bodyPart/{bodyPart}",
-//                argument = listOf(navArgument())
-//            ) { ExerciseScreen(navController) }
+            composable(
+                route = "exercise/bodyPart/{bodyPart}",
+                arguments = listOf(navArgument("bodyPart") { defaultValue = "back" })
+            ) { backStackEntry ->
+                val bodyPart = backStackEntry.arguments?.getString("bodyPart") ?: "back"
+                ExerciseListScreen(navController, bodyPart)
+            }
+
 
             composable(
                 route = NavRoutes.Calendar.route,

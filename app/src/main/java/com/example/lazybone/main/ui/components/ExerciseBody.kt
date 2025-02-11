@@ -25,9 +25,7 @@ fun ExerciseBody(
         modifier = Modifier.padding(16.dp)
     ) {
         Card(modifier = Modifier
-            .clickable {
-//            navController.navigate("exercise")
-            }
+            .clickable {/* Navigate to Favorites */ }
             .width(200.dp)) {
             Column(
                 modifier = Modifier
@@ -43,9 +41,7 @@ fun ExerciseBody(
             bodyParts.forEach { bodyPart ->
                 Card(
                     modifier = Modifier
-                        .clickable {
-//            navController.navigate("exercise")
-                        }
+                        .clickable { navController.navigate("exercise/bodyPart/$bodyPart") }
                         .width(200.dp)
                 ) {
                     Column(

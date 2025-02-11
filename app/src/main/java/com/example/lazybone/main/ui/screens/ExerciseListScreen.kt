@@ -1,12 +1,8 @@
 package com.example.lazybone.main.ui.screens
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,19 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.lazybone.main.ui.components.ExerciseBody
-import com.example.lazybone.main.ui.components.ExerciseSearchBar
-import com.example.lazybone.main.ui.components.FavoriteList
 import com.example.lazybone.main.ui.navigation.LocalExerciseViewModel
 import com.example.lazybone.main.ui.toolbars.MainTopBar
 
 @Composable
-fun ExerciseScreen(navController: NavController) {
+fun ExerciseListScreen(navController: NavController, bodyPart: String) {
     val exerciseViewModel = LocalExerciseViewModel.current
-    val bodyParts by exerciseViewModel.bodyParts.collectAsState()
+    val exercises by exerciseViewModel.exercises.collectAsState()
 
-    LaunchedEffect(Unit) {
-        exerciseViewModel.loadBodyParts()
+    LaunchedEffect(bodyPart) {
+        exerciseViewModel.loadExercises(bodyPart) // Load exercises for selected body part
     }
 
     Scaffold(topBar = { MainTopBar(navController) }) { innerPadding ->
@@ -39,9 +32,10 @@ fun ExerciseScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(innerPadding)
         ) {
-            ExerciseSearchBar()
-            ExerciseBody(navController,bodyParts)
+            Text("Exercises for $bodyPart") // Show selected body part
+            exercises.forEach { exercise ->
+                Text(text = exercise.name, modifier = Modifier.padding(8.dp))
+            }
         }
-
     }
 }
