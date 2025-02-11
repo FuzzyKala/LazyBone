@@ -14,13 +14,27 @@ import kotlinx.coroutines.launch
 class ExerciseViewModel(private val repository: ExerciseRepository) : ViewModel() {
     private val _exercises = MutableStateFlow<List<Exercise>>(emptyList())
     val exercises = _exercises.asStateFlow()
-
     fun loadExercises(bodyPart: String) {
         viewModelScope.launch {
             try {
                 val result = repository.fetchExercises(bodyPart)
                 Log.d("ExerciseViewModel", "API Response: $result")
                 _exercises.value = result ?: emptyList()
+            } catch (e: Exception) {
+                Log.e("ExerciseViewModel", "API Error: ${e.message}")
+            }
+        }
+    }
+
+
+    private val _bodyParts = MutableStateFlow<List<String>>(emptyList())
+    val bodyParts = _bodyParts.asStateFlow()
+    fun loadBodyParts() {
+        viewModelScope.launch {
+            try {
+                val result = repository.fetchBodyPartList()
+                Log.d("ExerciseViewModel", "API Response: $result")
+                _bodyParts.value = result ?: emptyList()
             } catch (e: Exception) {
                 Log.e("ExerciseViewModel", "API Error: ${e.message}")
             }

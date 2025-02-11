@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -26,12 +28,8 @@ import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DateSelector(
+fun DateSelector(navController: NavController) {
 
-    navController: NavController,
-//    selectedDate: LocalDate,
-//    today: LocalDate
-) {
     val dateViewModel = LocalDateViewModel.current
     val today = dateViewModel.today.value
     val selectedDate = dateViewModel.selectedDate.value
@@ -40,14 +38,17 @@ fun DateSelector(
     val formattedDate = selectedDate.format(formatter)
 
     Box(
-        modifier = Modifier.drawBehind {
-            drawLine(
-                color = Color.Gray,
-                start = Offset(0f, size.height),
-                end = Offset(size.width, size.height),
-                strokeWidth = 2.dp.toPx()
-            )
-        }
+        modifier = Modifier
+            .drawBehind {
+                drawLine(
+                    color = Color.Gray,
+                    start = Offset(0f, size.height),
+                    end = Offset(size.width, size.height),
+                    strokeWidth = 2.dp.toPx()
+                )
+            }
+            .height(56.dp)
+            .padding(vertical = 4.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

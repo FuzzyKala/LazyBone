@@ -7,12 +7,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 //Ensures a singleton instance for efficient API interaction.
 object RetrofitInstance {
-    private const val BASE_URL = "https://exercisedb.p.rapidapi.com/"
+    private const val BASE_URL = "https://exercisedb.p.rapidapi.com"
+
+    private val logging = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
 
     private val client = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY // Logs API responses
-        }).build()
+        .addInterceptor(logging)
+        .addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("X-RapidAPI-Key", "18bf928921msh664498f858bba6bp1ed026jsn7b9d1cd5518b")
+                .addHeader("X-RapidAPI-Host", "exercisedb.p.rapidapi.com")
+                .build()
+            chain.proceed(request)
+        }.build()
+
 
     val api: ExerciseApiService by lazy {
         Retrofit.Builder()

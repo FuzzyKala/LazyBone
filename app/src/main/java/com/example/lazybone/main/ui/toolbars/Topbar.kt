@@ -30,7 +30,7 @@ fun MainTopBar(navController: NavController) {
 
     Box {
         TopAppBar(
-            title = { Text("LazyBone") },
+            title = { Text("LazyBone")},
             navigationIcon = {
                 Icon(
                     imageVector = Icons.Filled.Menu,
@@ -59,7 +59,7 @@ fun MainTopBar(navController: NavController) {
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
-                    offset = DpOffset(40.dp, 10.dp)
+                    offset = DpOffset(36.dp, 10.dp)
                 ) {
                     DropdownMenuItem(
                         text = { Text("Setting") },
