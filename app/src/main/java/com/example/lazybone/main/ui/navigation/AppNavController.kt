@@ -70,7 +70,9 @@ fun AppNavController() {
 
             composable(
                 route = "exercise/bodyPart/{bodyPart}",
-                arguments = listOf(navArgument("bodyPart") { defaultValue = "back" })
+                arguments = listOf(navArgument("bodyPart") { defaultValue = "back" }),
+                enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+                exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { backStackEntry ->
                 val bodyPart = backStackEntry.arguments?.getString("bodyPart") ?: "back"
                 ExerciseListScreen(navController, bodyPart)
@@ -78,7 +80,9 @@ fun AppNavController() {
 
             composable(
                 route = "exerciseDetail/{exerciseId}",
-                arguments = listOf(navArgument("exerciseId") { defaultValue = "" })
+                arguments = listOf(navArgument("exerciseId") { defaultValue = "" }),
+                enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+                exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { backStackEntry ->
                 val exerciseId = backStackEntry.arguments?.getString("exerciseId") ?: ""
                 ExerciseDetailScreen(navController, exerciseId)
