@@ -16,6 +16,7 @@ import com.example.lazybone.main.api.ExerciseRepository
 import com.example.lazybone.main.api.ExerciseViewModelFactory
 import com.example.lazybone.main.api.RetrofitInstance
 import com.example.lazybone.main.ui.screens.CalendarScreen
+import com.example.lazybone.main.ui.screens.ExerciseDetailScreen
 import com.example.lazybone.main.ui.screens.ExerciseListScreen
 import com.example.lazybone.main.ui.screens.ExerciseScreen
 import com.example.lazybone.main.ui.screens.MainScreen
@@ -67,13 +68,20 @@ fun AppNavController() {
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { ExerciseScreen(navController) }
 
-
             composable(
                 route = "exercise/bodyPart/{bodyPart}",
                 arguments = listOf(navArgument("bodyPart") { defaultValue = "back" })
             ) { backStackEntry ->
                 val bodyPart = backStackEntry.arguments?.getString("bodyPart") ?: "back"
                 ExerciseListScreen(navController, bodyPart)
+            }
+
+            composable(
+                route = "exerciseDetail/{exerciseId}",
+                arguments = listOf(navArgument("exerciseId") { defaultValue = "" })
+            ) { backStackEntry ->
+                val exerciseId = backStackEntry.arguments?.getString("exerciseId") ?: ""
+                ExerciseDetailScreen(navController, exerciseId)
             }
 
 

@@ -24,6 +24,7 @@ fun ExerciseBody(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.padding(16.dp)
     ) {
+
         Card(modifier = Modifier
             .clickable {/* Navigate to Favorites */ }
             .width(200.dp)) {
@@ -35,25 +36,20 @@ fun ExerciseBody(
             ) { Text(text = "Favorites") }
         }
 
-        if (bodyParts.isEmpty()) {
-            Text(text = "No bodyParts found")
-        } else {
-            bodyParts.forEach { bodyPart ->
-                Card(
+        bodyParts.forEach { bodyPart ->
+            Card(
+                modifier = Modifier
+                    .clickable { navController.navigate("exercise/bodyPart/$bodyPart") }
+                    .width(200.dp)
+            ) {
+                Column(
                     modifier = Modifier
-                        .clickable { navController.navigate("exercise/bodyPart/$bodyPart") }
-                        .width(200.dp)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(12.dp)
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) { Text(text = bodyPart) }
-                }
+                        .padding(12.dp)
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) { Text(text = bodyPart) }
             }
         }
-
     }
 
 }
