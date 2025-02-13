@@ -1,5 +1,7 @@
 package com.example.lazybone.main.ui.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutControl
+import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutGif
 import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutRecord
 import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutSet
 import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutTitle
@@ -24,6 +27,7 @@ import com.example.lazybone.main.ui.navigation.LocalExerciseViewModel
 import com.example.lazybone.main.ui.toolbars.MainTopBar
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
     val exerciseViewModel = LocalExerciseViewModel.current
@@ -63,8 +67,13 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
                     { weightInput = it },
                     { repsInput = it },
                     { addSet() })
+
                 HorizontalDivider()
-                WorkoutRecord(workoutSets)
+                WorkoutGif(exercise.gifUrl)
+                if (workoutSets.isNotEmpty()) {
+                    HorizontalDivider()
+                    WorkoutRecord(workoutSets)
+                }
             }
         }
     }

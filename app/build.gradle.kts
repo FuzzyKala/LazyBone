@@ -71,4 +71,6 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.logging.interceptor)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
 }
