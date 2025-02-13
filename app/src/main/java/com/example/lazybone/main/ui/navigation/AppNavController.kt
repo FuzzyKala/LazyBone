@@ -23,13 +23,16 @@ import com.example.lazybone.main.ui.screens.MainScreen
 import com.example.lazybone.main.ui.screens.SettingsScreen
 import com.example.lazybone.main.ui.viewModel.DateViewModel
 import com.example.lazybone.main.ui.viewModel.ExerciseViewModel
+import com.example.lazybone.main.ui.viewModel.WorkoutViewModel
 import java.time.LocalDate
 
 val LocalDateViewModel = compositionLocalOf<DateViewModel> { error("No DateViewModel provided") }
 val LocalExerciseViewModel =
     compositionLocalOf<ExerciseViewModel> { error("No DateViewModel provided") }
+val LocalWorkoutViewModel =
+    compositionLocalOf<WorkoutViewModel> { error("No DateViewModel provided") }
 
-@RequiresApi(Build.VERSION_CODES.O)
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun AppNavController() {
 
@@ -41,10 +44,12 @@ fun AppNavController() {
     val exerciseViewModel: ExerciseViewModel = viewModel(
         factory = ExerciseViewModelFactory(exerciseRepository)
     )
+    val workoutViewModel: WorkoutViewModel = viewModel()
 
     CompositionLocalProvider(
         LocalDateViewModel provides dateViewModel,
-        LocalExerciseViewModel provides exerciseViewModel
+        LocalExerciseViewModel provides exerciseViewModel,
+        LocalWorkoutViewModel provides workoutViewModel
     ) {
         NavHost(
             navController = navController,
@@ -87,7 +92,6 @@ fun AppNavController() {
                 val exerciseId = backStackEntry.arguments?.getString("exerciseId") ?: ""
                 ExerciseDetailScreen(navController, exerciseId)
             }
-
 
             composable(
                 route = NavRoutes.Calendar.route,

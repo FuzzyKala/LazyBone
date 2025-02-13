@@ -26,7 +26,6 @@ class ExerciseViewModel(private val repository: ExerciseRepository) : ViewModel(
         }
     }
 
-
     private val _bodyParts = MutableStateFlow<List<String>>(emptyList())
     val bodyParts = _bodyParts.asStateFlow()
     fun loadBodyParts() {
