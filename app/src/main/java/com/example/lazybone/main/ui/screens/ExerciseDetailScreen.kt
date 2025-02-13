@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DividerDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -18,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.lazybone.main.ui.components.exerciseDetails.InputRaw
+import com.example.lazybone.main.ui.components.exerciseDetails.Interaction
 import com.example.lazybone.main.ui.navigation.LocalExerciseViewModel
 import com.example.lazybone.main.ui.toolbars.MainTopBar
 
@@ -36,29 +40,57 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(innerPadding)
-                .padding(horizontal = 60.dp)
                 .padding(vertical = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+//            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             if (exercise != null) {
-                Text(
-                    text = exercise.name, style = MaterialTheme.typography.headlineSmall
-                )
-                InputRaw(
-                    label = "Weight (Kgs)",
-                    value = weightInput,
-                    onValueChange = { weightInput = it },
-                    onIncrease = { /* Increase weight logic */ },
-                    onDecrease = { /* Decrease weight logic */ }
-                )
-                InputRaw(
-                    label = "Reps",
-                    value = repsInput,
-                    onValueChange = { repsInput = it },
-                    onIncrease = { /* Increase weight logic */ },
-                    onDecrease = { /* Decrease weight logic */ }
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text(
+                        text = exercise.name, style = MaterialTheme.typography.headlineSmall
+                    )
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 70.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    val weight = weightInput.toDoubleOrNull() ?: 0.0
+                    InputRaw(
+                        label = "Weight (Kgs)",
+                        value = weightInput,
+
+                        onValueChange = { newValue ->
+                            if (newValue.matches(Regex("^\\d{0,3}(\\.\\d?)?\$"))) {
+                                weightInput = newValue
+                            }
+                        },
+                        onIncrease = { weightInput = (weight + 2.5).toString() },
+                        onDecrease = { if (weight > 0) weightInput = (weight - 2.5).toString() }
+                    )
+
+                    val reps = repsInput.toIntOrNull() ?: 0
+                    InputRaw(
+                        label = "Reps",
+                        value = repsInput,
+                        onValueChange = { newValue ->
+                            if (newValue.matches(Regex("^\\d{0,2}$"))) {
+                                repsInput = newValue
+                            }
+                        },
+                        onIncrease = { repsInput = (reps + 1).toString() },
+                        onDecrease = { if (reps > 0) repsInput = (reps - 1).toString() }
+                    )
+                    Interaction()
+                }
+                HorizontalDivider()
             }
         }
     }

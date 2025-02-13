@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -42,8 +43,8 @@ fun InputRaw(
             .drawBehind {
                 drawLine(
                     color = Color.Gray,
-                    start = Offset(0f, size.height),
-                    end = Offset(size.width, size.height),
+                    start = Offset(0f, size.height-22f),
+                    end = Offset(size.width, size.height-22f),
                     strokeWidth = 2.dp.toPx()
                 )
             },
@@ -76,7 +77,14 @@ fun InputRaw(
                 value = value,
                 onValueChange = onValueChange,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                placeholder = { Text(text= label, color = Color.Gray) },
+                placeholder = {
+                    Text(
+                        text = label,
+                        color = Color.Gray,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
