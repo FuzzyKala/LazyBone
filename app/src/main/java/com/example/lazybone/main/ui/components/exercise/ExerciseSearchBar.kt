@@ -1,4 +1,4 @@
-package com.example.lazybone.main.ui.components
+package com.example.lazybone.main.ui.components.exercise
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

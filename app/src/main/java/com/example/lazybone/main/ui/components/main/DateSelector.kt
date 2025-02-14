@@ -1,4 +1,4 @@
-package com.example.lazybone.main.ui.components
+package com.example.lazybone.main.ui.components.main
 
 import android.os.Build
 import androidx.annotation.RequiresApi

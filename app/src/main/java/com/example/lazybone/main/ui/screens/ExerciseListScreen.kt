@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.lazybone.main.ui.components.ExerciseSearchBar
+import com.example.lazybone.main.ui.components.exercise.ExerciseSearchBar
 import com.example.lazybone.main.ui.navigation.LocalExerciseViewModel
 import com.example.lazybone.main.ui.toolbars.MainTopBar
 

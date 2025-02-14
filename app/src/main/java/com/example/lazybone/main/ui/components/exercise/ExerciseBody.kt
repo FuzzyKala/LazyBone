@@ -1,0 +1,32 @@
+package com.example.lazybone.main.ui.components.exercise
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+
+@Composable
+fun ExerciseBody(
+    navController: NavController,
+    bodyParts: List<String>
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(16.dp)
+    ) {
+        BodyPartCardTemplate(navController, "exercise/favorite")
+
+        bodyParts.forEach { bodyPart ->
+            BodyPartCardTemplate(
+                navController = navController,
+                route = "exercise/bodyPart/$bodyPart",
+                bodyPart = bodyPart
+            )
+        }
+    }
+}

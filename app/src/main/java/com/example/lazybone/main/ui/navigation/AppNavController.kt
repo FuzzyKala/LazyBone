@@ -19,6 +19,7 @@ import com.example.lazybone.main.ui.screens.CalendarScreen
 import com.example.lazybone.main.ui.screens.ExerciseDetailScreen
 import com.example.lazybone.main.ui.screens.ExerciseListScreen
 import com.example.lazybone.main.ui.screens.ExerciseScreen
+import com.example.lazybone.main.ui.screens.FavoriteScreen
 import com.example.lazybone.main.ui.screens.MainScreen
 import com.example.lazybone.main.ui.screens.SettingsScreen
 import com.example.lazybone.main.ui.viewModel.DateViewModel
@@ -99,13 +100,17 @@ fun AppNavController() {
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { CalendarScreen(navController) }
 
-
-
             composable(
                 route = NavRoutes.Settings.route,
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { SettingsScreen(navController) }
+
+            composable(
+                route = NavRoutes.Favorites.route,
+                enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+                exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
+            ) { FavoriteScreen(navController) }
         }
     }
 
