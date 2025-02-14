@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.lazybone.main.ui.navigation.NavRoutes
 
 @Composable
 fun ExerciseBody(
@@ -19,12 +20,12 @@ fun ExerciseBody(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.padding(16.dp)
     ) {
-        BodyPartCardTemplate(navController, "exercise/favorite")
+        BodyPartCardTemplate(navController, NavRoutes.RouteToFavorite.route)
 
         bodyParts.forEach { bodyPart ->
             BodyPartCardTemplate(
                 navController = navController,
-                route = "exercise/bodyPart/$bodyPart",
+                route = NavRoutes.routeToExerciseList(bodyPart),
                 bodyPart = bodyPart
             )
         }

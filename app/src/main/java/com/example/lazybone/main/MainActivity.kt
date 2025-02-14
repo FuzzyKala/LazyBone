@@ -10,7 +10,7 @@ import com.example.lazybone.main.ui.navigation.AppNavController
 import com.example.lazybone.main.ui.theme.LazyBoneTheme
 
 class MainActivity : ComponentActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

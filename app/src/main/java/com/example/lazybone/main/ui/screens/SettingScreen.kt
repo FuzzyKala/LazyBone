@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import com.example.lazybone.main.ui.toolbars.MainTopBar
 
 @Composable
-fun SettingsScreen(navController: NavController) {
+fun SettingScreen(navController: NavController) {
     Scaffold(
         topBar = { MainTopBar(navController) }
     ) { innerPadding ->

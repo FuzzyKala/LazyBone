@@ -10,9 +10,7 @@ import com.example.lazybone.main.ui.toolbars.MainTopBar
 
 @Composable
 fun FavoriteScreen(navController: NavController) {
-    Scaffold(
-        topBar = { MainTopBar(navController) }
-    ) { innerPadding ->
+    Scaffold(topBar = { MainTopBar(navController) }) { innerPadding ->
         Text(
             text = "Favorite Screen",
             modifier = Modifier.padding(innerPadding)

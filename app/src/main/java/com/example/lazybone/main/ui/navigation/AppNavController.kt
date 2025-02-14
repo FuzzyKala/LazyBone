@@ -21,7 +21,7 @@ import com.example.lazybone.main.ui.screens.ExerciseListScreen
 import com.example.lazybone.main.ui.screens.ExerciseScreen
 import com.example.lazybone.main.ui.screens.FavoriteScreen
 import com.example.lazybone.main.ui.screens.MainScreen
-import com.example.lazybone.main.ui.screens.SettingsScreen
+import com.example.lazybone.main.ui.screens.SettingScreen
 import com.example.lazybone.main.ui.viewModel.DateViewModel
 import com.example.lazybone.main.ui.viewModel.ExerciseViewModel
 import com.example.lazybone.main.ui.viewModel.WorkoutViewModel
@@ -54,10 +54,10 @@ fun AppNavController() {
     ) {
         NavHost(
             navController = navController,
-            startDestination = NavRoutes.mainRoute(dateViewModel.today.value.toString())
+            startDestination = NavRoutes.routeToMain(dateViewModel.today.value.toString())
         ) {
             composable(
-                route = "main/{date}",
+                route = NavRoutes.routeToMain("{date}"),
                 arguments = listOf(navArgument("date") {
                     defaultValue = dateViewModel.today.value.toString()
                 }),
@@ -69,13 +69,13 @@ fun AppNavController() {
             }
 
             composable(
-                route = NavRoutes.Exercise.route,
+                route = NavRoutes.RouteToExercise.route,
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { ExerciseScreen(navController) }
 
             composable(
-                route = "exercise/bodyPart/{bodyPart}",
+                route = NavRoutes.routeToExerciseList("{bodyPart}"),
                 arguments = listOf(navArgument("bodyPart") { defaultValue = "back" }),
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
@@ -85,7 +85,7 @@ fun AppNavController() {
             }
 
             composable(
-                route = "exerciseDetail/{exerciseId}",
+                route = NavRoutes.routeToExerciseDetail("{exerciseId}"),
                 arguments = listOf(navArgument("exerciseId") { defaultValue = "" }),
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
@@ -95,19 +95,19 @@ fun AppNavController() {
             }
 
             composable(
-                route = NavRoutes.Calendar.route,
+                route = NavRoutes.RouteToCalendar.route,
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { CalendarScreen(navController) }
 
             composable(
-                route = NavRoutes.Settings.route,
+                route = NavRoutes.RouteToSetting.route,
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-            ) { SettingsScreen(navController) }
+            ) { SettingScreen(navController) }
 
             composable(
-                route = NavRoutes.Favorites.route,
+                route = NavRoutes.RouteToFavorite.route,
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { FavoriteScreen(navController) }

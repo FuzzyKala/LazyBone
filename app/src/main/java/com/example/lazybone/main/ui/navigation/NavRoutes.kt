@@ -2,12 +2,14 @@ package com.example.lazybone.main.ui.navigation
 
 sealed class NavRoutes(val route: String) {
 
-    data object Calendar : NavRoutes("calendar")
-    data object Exercise : NavRoutes("exercise")
-    data object Settings : NavRoutes("setting")
-    data object Favorites : NavRoutes("Favorite")
+    data object RouteToCalendar : NavRoutes("calendar")
+    data object RouteToExercise : NavRoutes("exercise")
+    data object RouteToSetting : NavRoutes("setting")
+    data object RouteToFavorite : NavRoutes("favorite")
 
     companion object {
-        fun mainRoute(date: String): String = "main/${date}"
+        fun routeToMain(date: String): String = "main/$date"
+        fun routeToExerciseList(bodyPart: String): String = "exercise/bodyPart/$bodyPart"
+        fun routeToExerciseDetail(exerciseId: String): String = "exerciseDetail/$exerciseId"
     }
 }

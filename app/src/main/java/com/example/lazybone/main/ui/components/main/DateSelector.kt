@@ -59,7 +59,7 @@ fun DateSelector(navController: NavController) {
                 val newDate = selectedDate.minusDays(1)
                 if (newDate != selectedDate) {
                     dateViewModel.setSelectedDate(newDate)
-                    navController.navigate(NavRoutes.mainRoute(newDate.toString())) {
+                    navController.navigate(NavRoutes.routeToMain(newDate.toString())) {
                         popUpTo("main") { inclusive = true }
                     }
                 }
@@ -84,7 +84,7 @@ fun DateSelector(navController: NavController) {
                 val newDate = selectedDate.plusDays(1)
                 if (newDate != selectedDate) {
                     dateViewModel.setSelectedDate(newDate)
-                    navController.navigate(NavRoutes.mainRoute(newDate.toString())) {
+                    navController.navigate(NavRoutes.routeToMain(newDate.toString())) {
                         popUpTo("main") { inclusive = true }
                     }
                 }
