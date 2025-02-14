@@ -5,10 +5,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-//Ensures a singleton instance for efficient API interaction.
+// Rapid API
+// Ensures a singleton instance for efficient API interaction.
 object RetrofitInstance {
     private const val BASE_URL = "https://exercisedb.p.rapidapi.com"
-
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }

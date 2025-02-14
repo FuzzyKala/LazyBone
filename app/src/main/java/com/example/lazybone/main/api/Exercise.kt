@@ -1,5 +1,6 @@
 package com.example.lazybone.main.api
 
+// Rapid API
 data class Exercise(
     val bodyPart: String,
     val equipment: String,
@@ -10,3 +11,5 @@ data class Exercise(
     val secondaryMuscles: List<String>,
     val instructions: List<String>
 )
+
+// Wger API

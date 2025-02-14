@@ -3,8 +3,8 @@ package com.example.lazybone.main.api
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-
-//Defines the API contract and endpoints in a way Retrofit can handle.
+// Rapid API
+// Defines the API contract and endpoints in a way Retrofit can handle.
 interface ExerciseApiService {
 
     @GET("/exercises/bodyPart/{bodyPart}")
@@ -13,3 +13,5 @@ interface ExerciseApiService {
     @GET("/exercises/bodyPartList")
     suspend fun getBodyPartList(): List<String>?
 }
+
+// Wger API
