@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.lazybone.main.api.Exercise
 import com.example.lazybone.main.ui.components.exercise.ExerciseSearchBar
 import com.example.lazybone.main.ui.navigation.LocalExerciseViewModel
 import com.example.lazybone.main.ui.toolbars.MainTopBar
@@ -24,7 +25,7 @@ import com.example.lazybone.main.ui.toolbars.MainTopBar
 @Composable
 fun ExerciseListScreen(navController: NavController, bodyPart: String) {
     val exerciseViewModel = LocalExerciseViewModel.current
-    val exercises by exerciseViewModel.exercises.collectAsState()
+    val exercises: List<Exercise> by exerciseViewModel.exercises.collectAsState()
 
     LaunchedEffect(bodyPart) {
         exerciseViewModel.loadExercises(bodyPart) // Load exercises for selected body part
@@ -45,7 +46,7 @@ fun ExerciseListScreen(navController: NavController, bodyPart: String) {
 
                 exercises.forEach { exercise ->
                     Card(modifier = Modifier
-                        .clickable {navController.navigate("exerciseDetail/${exercise.id}") }
+                        .clickable { navController.navigate("exerciseDetail/${exercise.id}") }
                         .width(400.dp)) {
                         Column(
                             modifier = Modifier

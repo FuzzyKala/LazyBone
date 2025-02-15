@@ -1,15 +1,32 @@
 package com.example.lazybone.main.api
 
-// Rapid API
-data class Exercise(
-    val bodyPart: String,
-    val equipment: String,
-    val gifUrl: String,
-    val id: String,
-    val name: String,
-    val target: String,
-    val secondaryMuscles: List<String>,
-    val instructions: List<String>
+data class WgerBodyPartResponse(
+    val count: Int,
+    val next: String?,
+    val previous: String?,
+    val results: List<BodyPart>
 )
 
-// Wger API
+data class BodyPart(
+    val id: Int,
+    val name: String
+)
+
+data class WgerExerciseResponse(
+    val count: Int,
+    val next: String?,
+    val previous: String?,
+    val results: List<Exercise>
+)
+
+data class Exercise(
+    val id: Int,
+    val name: String,
+    val category: BodyPart,
+    val images: List<MovementImage>
+)
+
+data class MovementImage(
+    val id: Int,
+    val image: String
+)

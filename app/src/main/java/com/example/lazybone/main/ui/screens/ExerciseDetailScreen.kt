@@ -30,38 +30,15 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
 
     val exerciseViewModel = LocalExerciseViewModel.current
     val exercises by exerciseViewModel.exercises.collectAsState()
-    val exercise = exercises.find { it.id == exerciseId }
+    val exercise = exercises.find { it.id == exerciseId.toIntOrNull() }
 
     val workoutViewModel = LocalWorkoutViewModel.current
-
-
-//    var weightInput by remember { mutableStateOf("") }
-//    var repsInput by remember { mutableStateOf("") }
-//    val workoutSets = remember { mutableStateListOf<WorkoutSet>() }
 
     val weightInput by workoutViewModel.weightInput.collectAsState()
     val repsInput by workoutViewModel.repsInput.collectAsState()
     val workoutSets by workoutViewModel.workoutSets.collectAsState()
     val currentWorkoutSets = workoutSets[exerciseId] ?: emptyList()
 
-//    fun addSet() {
-//        val weight = weightInput.toDoubleOrNull() ?: return
-//        val reps = repsInput.toIntOrNull() ?: return
-//
-////        workoutSets.add(
-////            WorkoutSet(
-////                setNumber = workoutSets.size + 1,
-////                weight = weight,
-////                reps = reps
-////            )
-////        )
-//        val newSet = WorkoutSet(
-//            setNumber = currentWorkoutSets.size + 1,
-//            weight = weight,
-//            reps = reps
-//        )
-//        workoutViewModel.addWorkoutSet(exerciseId, newSet)
-//    }
 
     Scaffold(topBar = { MainTopBar(navController) }) { innerPadding ->
         Column(
@@ -81,7 +58,7 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
                     { workoutViewModel.addWorkoutSet(exerciseId) }
                 )
                 HorizontalDivider()
-                WorkoutGif(exercise.gifUrl)
+                WorkoutGif(exercise.images)
                 if (workoutSets.isNotEmpty()) {
                     HorizontalDivider()
                     WorkoutRecord(currentWorkoutSets)

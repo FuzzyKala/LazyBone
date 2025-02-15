@@ -8,12 +8,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.lazybone.main.api.BodyPart
 import com.example.lazybone.main.ui.navigation.NavRoutes
 
 @Composable
 fun ExerciseBody(
     navController: NavController,
-    bodyParts: List<String>
+    bodyParts: List<BodyPart>
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -25,8 +26,8 @@ fun ExerciseBody(
         bodyParts.forEach { bodyPart ->
             BodyPartCardTemplate(
                 navController = navController,
-                route = NavRoutes.routeToExerciseList(bodyPart),
-                bodyPart = bodyPart
+                route = NavRoutes.routeToExerciseList(bodyPart.name),
+                bodyPart = bodyPart.name
             )
         }
     }
