@@ -1,5 +1,7 @@
 package com.example.lazybone.main.api
 
+import com.google.gson.annotations.SerializedName
+
 data class WgerBodyPartResponse(
     val count: Int,
     val next: String?,
@@ -22,11 +24,20 @@ data class WgerExerciseResponse(
 data class Exercise(
     val id: Int,
     val name: String,
-    val category: BodyPart,
-    val images: List<MovementImage>
+    val category: Int,
+    val language: Int,
+    @SerializedName("exercise_base") val exerciseBaseId: Int
 )
 
-data class MovementImage(
+data class WgerImageResponse(
+    val count: Int,
+    val next: String?,
+    val previous: String?,
+    val results: List<ExerciseImage>
+)
+
+data class ExerciseImage(
     val id: Int,
+    @SerializedName("exercise_base") val exerciseBaseId: Int,
     val image: String
 )

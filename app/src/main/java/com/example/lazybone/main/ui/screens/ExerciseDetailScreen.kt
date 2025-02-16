@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -31,6 +32,12 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
     val exerciseViewModel = LocalExerciseViewModel.current
     val exercises by exerciseViewModel.exercises.collectAsState()
     val exercise = exercises.find { it.id == exerciseId.toIntOrNull() }
+
+    val exerciseImages by exerciseViewModel.exerciseImages.collectAsState()
+
+    LaunchedEffect(exerciseId) {
+        exerciseViewModel.loadExerciseImages(exerciseId.toInt())
+    }
 
     val workoutViewModel = LocalWorkoutViewModel.current
 
@@ -58,7 +65,7 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
                     { workoutViewModel.addWorkoutSet(exerciseId) }
                 )
                 HorizontalDivider()
-                WorkoutGif(exercise.images)
+                WorkoutGif(exerciseImages)
                 if (workoutSets.isNotEmpty()) {
                     HorizontalDivider()
                     WorkoutRecord(currentWorkoutSets)

@@ -1,14 +1,28 @@
 package com.example.lazybone.main.api
 
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 // Defines the API contract and endpoints in a way Retrofit can handle.
 // Wger API
 interface ExerciseApiService {
-    @GET("exerciseinfo")
-    suspend fun getExercises(): WgerExerciseResponse
+
+//    @GET("exerciseinfo")
+//    suspend fun getExercises(): WgerExerciseResponse
+
+    @GET("exercise")
+    suspend fun getExercises(
+        @Query("category") categoryId: Int,
+        @Query("language") languageId: Int = 2,
+        @Query("limit") limit: Int = 10
+    ): WgerExerciseResponse
 
     @GET("exercisecategory")
-    suspend fun getBodyPartList(): WgerBodyPartResponse
+    suspend fun getBodyParts(): WgerBodyPartResponse
+
+    @GET("exerciseimage")
+    suspend fun getExerciseImages(
+        @Query("exercise_base") exerciseBaseId: Int
+    ): WgerImageResponse
 }

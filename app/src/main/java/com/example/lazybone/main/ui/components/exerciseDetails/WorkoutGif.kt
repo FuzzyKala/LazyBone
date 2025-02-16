@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.example.lazybone.main.api.MovementImage
+import com.example.lazybone.main.api.ExerciseImage
 import kotlinx.coroutines.delay
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun WorkoutGif(imageUrls: List<MovementImage>) {
+fun WorkoutGif(imageUrls: List<ExerciseImage>) {
 
     if (imageUrls.isNotEmpty()) {
         var currentImageIndex by remember { mutableIntStateOf(0) }
