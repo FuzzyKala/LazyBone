@@ -24,8 +24,14 @@ fun MainScreen(navController: NavController) {
     val programViewModel = LocalWProgramViewModel.current
     val dateViewModel = LocalDateViewModel.current
 
-    val todayProgram = programViewModel.getProgramByDate(dateViewModel.today.value)
-    Log.d("todayProgram", "$todayProgram")
+    val today = dateViewModel.today.value
+    val selectedDate = dateViewModel.selectedDate.value
+
+    val renderingProgram = programViewModel.getProgramByDate(selectedDate)
+
+    Log.d("todayProgram", "$renderingProgram")
+    Log.d("todayProgram","today:$today")
+    Log.d("todayProgram","selectedDate:$selectedDate")
 
     Scaffold(topBar = { MainTopBar(navController) }) { innerPadding ->
         Column(
@@ -34,8 +40,8 @@ fun MainScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(innerPadding)
         ) {
-            DateSelector(navController)
-            MainBody(navController, todayProgram?.workouts ?: emptyList())
+            DateSelector(navController,today,selectedDate)
+            MainBody(navController, renderingProgram?.workouts ?: emptyList())
         }
 
     }

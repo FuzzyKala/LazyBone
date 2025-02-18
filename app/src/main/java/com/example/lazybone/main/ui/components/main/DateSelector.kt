@@ -24,15 +24,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.lazybone.main.ui.navigation.LocalDateViewModel
 import com.example.lazybone.main.ui.navigation.NavRoutes
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DateSelector(navController: NavController) {
-
+fun DateSelector(
+    navController: NavController,
+    today: LocalDate,
+    selectedDate: LocalDate
+) {
     val dateViewModel = LocalDateViewModel.current
-    val today = dateViewModel.today.value
-    val selectedDate = dateViewModel.selectedDate.value
 
     val formatter = DateTimeFormatter.ofPattern("EEEE, MMM dd")
     val formattedDate = selectedDate.format(formatter)
