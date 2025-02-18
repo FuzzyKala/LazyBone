@@ -24,6 +24,7 @@ import com.example.lazybone.main.ui.screens.MainScreen
 import com.example.lazybone.main.ui.screens.SettingScreen
 import com.example.lazybone.main.ui.viewModel.DateViewModel
 import com.example.lazybone.main.ui.viewModel.ExerciseViewModel
+import com.example.lazybone.main.ui.viewModel.ProgramViewModel
 import com.example.lazybone.main.ui.viewModel.WorkoutViewModel
 import java.time.LocalDate
 
@@ -32,6 +33,8 @@ val LocalExerciseViewModel =
     compositionLocalOf<ExerciseViewModel> { error("No DateViewModel provided") }
 val LocalWorkoutViewModel =
     compositionLocalOf<WorkoutViewModel> { error("No DateViewModel provided") }
+val LocalWProgramViewModel =
+    compositionLocalOf<ProgramViewModel> { error("No DateViewModel provided") }
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
@@ -41,16 +44,19 @@ fun AppNavController() {
     val dateViewModel: DateViewModel = viewModel()
 
     val exerciseRepository = ExerciseRepository(RetrofitInstance.api)
-
     val exerciseViewModel: ExerciseViewModel = viewModel(
         factory = ExerciseViewModelFactory(exerciseRepository)
     )
+
     val workoutViewModel: WorkoutViewModel = viewModel()
+
+    val programViewModel: ProgramViewModel = viewModel()
 
     CompositionLocalProvider(
         LocalDateViewModel provides dateViewModel,
         LocalExerciseViewModel provides exerciseViewModel,
-        LocalWorkoutViewModel provides workoutViewModel
+        LocalWorkoutViewModel provides workoutViewModel,
+        LocalWProgramViewModel provides programViewModel
     ) {
         NavHost(
             navController = navController,

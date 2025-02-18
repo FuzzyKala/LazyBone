@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun WorkoutRecord(workoutSets: List<WorkoutSet>) {
+fun WorkoutRecord(workoutSets: List<Set>) {
     LazyColumn(modifier = Modifier.padding(horizontal = 10.dp)) {
         items(workoutSets) { set ->
             Column(
@@ -38,7 +38,7 @@ fun WorkoutRecord(workoutSets: List<WorkoutSet>) {
                         .padding(5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(set.setNumber.toString())
+                    Text(set.id.toString())
                     Row {
                         Text(set.weight.toString())
                         Text(" kgs")

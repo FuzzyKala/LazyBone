@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">LazyBone</string>
+    <string name="icon_open_menu">Open Menu</string>
+    <string name="icon_add_exercise">Exercise</string>
+    <string name="icon_calendar">Calendar</string>
+    <string name="icon_open_submenu">Open subMenu</string>
+    <string name="dropdown_setting">Setting</string>
+    <string name="main_body_add_workout">Add</string>
+    <string name="main_body_content_copy">ContentCopy</string>
+    <string name="main_body_add_workout_desc">Add a new workout</string>
+    <string name="main_body_content_copy_desc">Copy a workout</string>
 </resources>

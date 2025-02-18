@@ -19,7 +19,9 @@ import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutControl
 import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutGif
 import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutRecord
 import com.example.lazybone.main.ui.components.exerciseDetails.WorkoutTitle
+import com.example.lazybone.main.ui.navigation.LocalDateViewModel
 import com.example.lazybone.main.ui.navigation.LocalExerciseViewModel
+import com.example.lazybone.main.ui.navigation.LocalWProgramViewModel
 import com.example.lazybone.main.ui.navigation.LocalWorkoutViewModel
 import com.example.lazybone.main.ui.toolbars.MainTopBar
 
@@ -40,12 +42,18 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
     }
 
     val workoutViewModel = LocalWorkoutViewModel.current
+    val programViewModel = LocalWProgramViewModel.current
 
     val weightInput by workoutViewModel.weightInput.collectAsState()
     val repsInput by workoutViewModel.repsInput.collectAsState()
-    val workoutSets by workoutViewModel.workoutSets.collectAsState()
-    val currentWorkoutSets = workoutSets[exerciseId] ?: emptyList()
+    val workouts by workoutViewModel.workouts.collectAsState()
 
+    val currentWorkout = workouts.find { it.name == exercise?.name }
+
+    val currentWorkoutSets = currentWorkout?.sets ?: emptyList()
+
+    val dateViewModel = LocalDateViewModel.current
+    val todayProgram = programViewModel.getProgramByDate(dateViewModel.today.value)
 
     Scaffold(topBar = { MainTopBar(navController) }) { innerPadding ->
         Column(
@@ -55,6 +63,7 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
                 .padding(vertical = 20.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
+//            Log.d("todayProgram", "$todayProgram")
             if (exercise != null) {
                 WorkoutTitle(exercise.name)
                 WorkoutControl(
@@ -62,11 +71,21 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
                     repsInput,
                     { workoutViewModel.setWeightInput(it) },
                     { workoutViewModel.setRepsInput(it) },
-                    { workoutViewModel.addWorkoutSet(exerciseId) }
+                    {
+                        workoutViewModel.addSetToWorkout(exercise.name)
+                        val updatedWorkouts = workoutViewModel.workouts.value
+                        val updatedWorkout = updatedWorkouts.find { it.name == exercise.name }
+                            ?: return@WorkoutControl
+
+                        programViewModel.addWorkoutToProgram(
+                            updatedWorkout,
+                            dateViewModel.today.value
+                        )
+                    }
                 )
                 HorizontalDivider()
                 WorkoutGif(exerciseImages)
-                if (workoutSets.isNotEmpty()) {
+                if (currentWorkoutSets.isNotEmpty()) {
                     HorizontalDivider()
                     WorkoutRecord(currentWorkoutSets)
                 }

@@ -18,9 +18,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.lazybone.R
+import com.example.lazybone.main.ui.navigation.NavRoutes
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,30 +33,30 @@ fun MainTopBar(navController: NavController) {
 
     Box {
         TopAppBar(
-            title = { Text("LazyBone")},
+            title = { Text(stringResource(id = R.string.app_name)) },
             navigationIcon = {
                 Icon(
                     imageVector = Icons.Filled.Menu,
-                    contentDescription = "Open Menu"
+                    contentDescription = stringResource(R.string.icon_open_menu)
                 )
             },
             actions = {
-                IconButton(onClick = { navController.navigate("exercise") }) {
+                IconButton(onClick = { navController.navigate(NavRoutes.RouteToExercise) }) {
                     Icon(
                         imageVector = Icons.Filled.Add,
-                        contentDescription = "Exercise"
+                        contentDescription = stringResource(R.string.icon_add_exercise)
                     )
                 }
-                IconButton(onClick = { navController.navigate("calendar") }) {
+                IconButton(onClick = { navController.navigate(NavRoutes.RouteToCalendar) }) {
                     Icon(
                         imageVector = Icons.Outlined.DateRange,
-                        contentDescription = "Calendar"
+                        contentDescription = stringResource(R.string.icon_calendar)
                     )
                 }
                 IconButton(onClick = { expanded = !expanded }) {
                     Icon(
                         imageVector = Icons.Filled.MoreVert,
-                        contentDescription = "Open submenu"
+                        contentDescription = stringResource(R.string.icon_open_submenu)
                     )
                 }
                 DropdownMenu(
@@ -62,8 +65,8 @@ fun MainTopBar(navController: NavController) {
                     offset = DpOffset(36.dp, 10.dp)
                 ) {
                     DropdownMenuItem(
-                        text = { Text("Setting") },
-                        onClick = { navController.navigate("setting") }
+                        text = { Text(stringResource(R.string.dropdown_setting)) },
+                        onClick = { navController.navigate(NavRoutes.RouteToSetting) }
                     )
                 }
 

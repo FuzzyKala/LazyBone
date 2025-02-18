@@ -8,20 +8,32 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.lazybone.R
+import com.example.lazybone.main.ui.components.exerciseDetails.Workout
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainBody(navController: NavController) {
+fun MainBody(navController: NavController,workouts: List<Workout>) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.padding(16.dp)
     ) {
-        CardTemplate(navController,"Add","Add a new workout")
-        CardTemplate(navController,"ContentCopy","Copy a workout")
+        CardTemplate(
+            navController,
+            stringResource(R.string.main_body_add_workout),
+            stringResource(R.string.main_body_add_workout_desc)
+        )
+        CardTemplate(
+            navController,
+            stringResource(R.string.main_body_content_copy),
+            stringResource(R.string.main_body_content_copy_desc)
+        )
+        WorkoutTemplate(navController, workouts)
     }
 
 }
