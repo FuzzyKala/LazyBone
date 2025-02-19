@@ -1,6 +1,7 @@
 package com.example.lazybone.main.ui.navigation
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -71,6 +72,7 @@ fun AppNavController() {
                 val dateString = backStackEntry.arguments?.getString("date")
                     ?: dateViewModel.today.value.toString()
                 dateViewModel.setSelectedDate(LocalDate.parse(dateString))
+                Log.d("dateString", dateString)
                 MainScreen(navController)
             }
 

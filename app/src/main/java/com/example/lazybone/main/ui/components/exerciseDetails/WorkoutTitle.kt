@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun WorkoutTitle(name:String) {
+fun WorkoutTitle(name: String) {
 
     Column(
         modifier = Modifier

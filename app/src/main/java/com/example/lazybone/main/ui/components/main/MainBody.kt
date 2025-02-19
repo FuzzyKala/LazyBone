@@ -1,6 +1,7 @@
 package com.example.lazybone.main.ui.components.main
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,24 +17,29 @@ import com.example.lazybone.main.ui.components.exerciseDetails.Workout
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainBody(navController: NavController,workouts: List<Workout>) {
+fun MainBody(navController: NavController, workouts: List<Workout>) {
+
+    Log.d("MainBody", "$workouts")
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(top = 10.dp)
     ) {
-        CardTemplate(
-            navController,
-            stringResource(R.string.main_body_add_workout),
-            stringResource(R.string.main_body_add_workout_desc)
-        )
-        CardTemplate(
-            navController,
-            stringResource(R.string.main_body_content_copy),
-            stringResource(R.string.main_body_content_copy_desc)
-        )
-        WorkoutTemplate(navController, workouts)
+        if (workouts.isEmpty()) {
+            CardTemplate(
+                navController,
+                stringResource(R.string.main_body_add_workout),
+                stringResource(R.string.main_body_add_workout_desc)
+            )
+            CardTemplate(
+                navController,
+                stringResource(R.string.main_body_content_copy),
+                stringResource(R.string.main_body_content_copy_desc)
+            )
+        } else {
+            WorkoutTemplate(navController, workouts)
+        }
     }
 
 }

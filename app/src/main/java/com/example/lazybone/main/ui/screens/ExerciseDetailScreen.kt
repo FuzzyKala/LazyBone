@@ -53,7 +53,6 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
     val currentWorkoutSets = currentWorkout?.sets ?: emptyList()
 
     val dateViewModel = LocalDateViewModel.current
-    val todayProgram = programViewModel.getProgramByDate(dateViewModel.today.value)
 
     Scaffold(topBar = { MainTopBar(navController) }) { innerPadding ->
         Column(
@@ -63,7 +62,6 @@ fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
                 .padding(vertical = 20.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-//            Log.d("todayProgram", "$todayProgram")
             if (exercise != null) {
                 WorkoutTitle(exercise.name)
                 WorkoutControl(

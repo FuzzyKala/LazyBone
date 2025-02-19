@@ -41,13 +41,13 @@ fun MainTopBar(navController: NavController) {
                 )
             },
             actions = {
-                IconButton(onClick = { navController.navigate(NavRoutes.RouteToExercise) }) {
+                IconButton(onClick = { navController.navigate(NavRoutes.RouteToExercise.route) }) {
                     Icon(
                         imageVector = Icons.Filled.Add,
                         contentDescription = stringResource(R.string.icon_add_exercise)
                     )
                 }
-                IconButton(onClick = { navController.navigate(NavRoutes.RouteToCalendar) }) {
+                IconButton(onClick = { navController.navigate(NavRoutes.RouteToCalendar.route) }) {
                     Icon(
                         imageVector = Icons.Outlined.DateRange,
                         contentDescription = stringResource(R.string.icon_calendar)
@@ -66,7 +66,7 @@ fun MainTopBar(navController: NavController) {
                 ) {
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.dropdown_setting)) },
-                        onClick = { navController.navigate(NavRoutes.RouteToSetting) }
+                        onClick = { navController.navigate(NavRoutes.RouteToSetting.route) }
                     )
                 }
 

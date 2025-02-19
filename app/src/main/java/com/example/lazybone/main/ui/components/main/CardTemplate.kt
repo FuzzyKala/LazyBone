@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.lazybone.main.ui.navigation.NavRoutes
 
 @Composable
 fun CardTemplate(navController: NavController, iconText: String, description: String) {
@@ -26,7 +27,7 @@ fun CardTemplate(navController: NavController, iconText: String, description: St
     Card(
         modifier = Modifier
             .clickable {
-                navController.navigate("exercise")
+                navController.navigate(NavRoutes.RouteToExercise.route)
             }
             .width(200.dp)
     ) {

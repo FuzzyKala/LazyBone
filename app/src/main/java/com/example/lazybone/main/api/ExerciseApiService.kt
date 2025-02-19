@@ -8,14 +8,11 @@ import retrofit2.http.Query
 // Wger API
 interface ExerciseApiService {
 
-//    @GET("exerciseinfo")
-//    suspend fun getExercises(): WgerExerciseResponse
-
     @GET("exercise")
     suspend fun getExercises(
         @Query("category") categoryId: Int,
         @Query("language") languageId: Int = 2,
-        @Query("limit") limit: Int = 10
+        @Query("limit") limit: Int = 592
     ): WgerExerciseResponse
 
     @GET("exercisecategory")
