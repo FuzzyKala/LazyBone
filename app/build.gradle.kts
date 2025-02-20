@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
 }
 
 android {
@@ -73,4 +74,5 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.coil.compose)
     implementation(libs.coil.gif)
+
 }

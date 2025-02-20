@@ -68,9 +68,7 @@ class ExerciseViewModel(private val repository: ExerciseRepository) : ViewModel(
             try {
                 val result: List<BodyPart>? = repository.fetchBodyPartList()
                 Log.d("ExerciseViewModel", "API Response: $result")
-                if (result != null) {
-                    _bodyParts.value = result
-                }
+                _bodyParts.value = result ?: emptyList()
             } catch (e: Exception) {
                 Log.e("ExerciseViewModel", "API Error: ${e.message}")
             }

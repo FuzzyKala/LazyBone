@@ -10,7 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDate
 
-class ProgramViewModel : ViewModel() {
+class ProgramViewModel() : ViewModel() {
+
     @RequiresApi(Build.VERSION_CODES.O)
     private val _programs = MutableStateFlow(
         listOf(Program(id = 1, date = LocalDate.now(), workouts = emptyList()))
@@ -44,16 +45,6 @@ class ProgramViewModel : ViewModel() {
 
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun removeWorkout(programId: Int, workoutId: Int) {
-        _programs.value = _programs.value.map { program ->
-            if (program.id == programId) {
-                program.copy(workouts = program.workouts.filter { it.id != workoutId })
-            } else program
-        }
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun getProgramByDate(date: LocalDate): Program? {
         val program = _programs.value.find { it.date.isEqual(date) }
@@ -61,9 +52,5 @@ class ProgramViewModel : ViewModel() {
         return program
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getAllPrograms(): List<Program> {
-        return _programs.value
-    }
 
 }
