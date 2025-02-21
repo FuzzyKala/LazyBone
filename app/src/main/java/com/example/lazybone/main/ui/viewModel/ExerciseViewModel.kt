@@ -7,17 +7,14 @@ import com.example.lazybone.main.api.BodyPart
 import com.example.lazybone.main.api.Exercise
 import com.example.lazybone.main.api.ExerciseImage
 import com.example.lazybone.main.api.ExerciseRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 // Holds and manages UI data in a lifecycle-aware way.
 
-@HiltViewModel
-class ExerciseViewModel @Inject constructor(private val repository: ExerciseRepository) :
+class ExerciseViewModel(private val repository: ExerciseRepository) :
     ViewModel() {
 
     private val _exercises = MutableStateFlow<List<Exercise>>(emptyList())

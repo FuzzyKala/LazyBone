@@ -19,6 +19,7 @@ retrofit = "2.9.0"
 firebaseAppdistributionGradle = "5.1.1"
 roomRuntime = "2.6.1"
 roomKtx = "2.6.1"
+ksp = "2.1.0-1.0.29"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -54,4 +55,4 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx"
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
