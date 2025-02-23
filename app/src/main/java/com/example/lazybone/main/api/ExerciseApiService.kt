@@ -5,14 +5,13 @@ import retrofit2.http.Query
 
 
 // Defines the API contract and endpoints in a way Retrofit can handle.
-// Wger API
 interface ExerciseApiService {
 
     @GET("exercise")
     suspend fun getExercises(
         @Query("category") categoryId: Int,
         @Query("language") languageId: Int = 2,
-        @Query("limit") limit: Int = 592
+        @Query("limit") limit: Int = 600
     ): WgerExerciseResponse
 
     @GET("exercisecategory")

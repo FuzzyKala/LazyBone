@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-// Ensures a singleton instance for efficient API interaction.
+// Ensures a singleton instance for efficient API interaction, like a configuration for fetching API.
 object RetrofitInstance {
     private const val BASE_URL = "https://wger.de/api/v2/"
     private val logging = HttpLoggingInterceptor().apply {
