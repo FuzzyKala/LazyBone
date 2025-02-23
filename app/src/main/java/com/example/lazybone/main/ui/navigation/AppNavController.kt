@@ -1,12 +1,12 @@
 package com.example.lazybone.main.ui.navigation
 
+
 import android.util.Log
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -22,6 +22,7 @@ import com.example.lazybone.main.ui.viewModel.DateViewModel
 import com.example.lazybone.main.ui.viewModel.ExerciseViewModel
 import com.example.lazybone.main.ui.viewModel.ProgramViewModel
 import com.example.lazybone.main.ui.viewModel.WorkoutViewModel
+import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
 
 val LocalDateViewModel = compositionLocalOf<DateViewModel> { error("No DateViewModel provided") }
@@ -36,10 +37,12 @@ val LocalWProgramViewModel =
 fun AppNavController() {
 
     val navController = rememberNavController()
-    val dateViewModel: DateViewModel = viewModel()
-    val exerciseViewModel: ExerciseViewModel = viewModel()
-    val workoutViewModel: WorkoutViewModel = viewModel()
-    val programViewModel: ProgramViewModel = viewModel()
+    val dateViewModel: DateViewModel = koinViewModel()
+    val exerciseViewModel: ExerciseViewModel = koinViewModel()
+    val workoutViewModel: WorkoutViewModel = koinViewModel()
+    val programViewModel: ProgramViewModel = koinViewModel()
+
+
 
     CompositionLocalProvider(
         LocalDateViewModel provides dateViewModel,
