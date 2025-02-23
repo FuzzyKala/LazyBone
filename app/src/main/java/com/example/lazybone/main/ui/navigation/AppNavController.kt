@@ -37,13 +37,11 @@ val LocalWorkoutViewModel =
 val LocalWProgramViewModel =
     compositionLocalOf<ProgramViewModel> { error("No DateViewModel provided") }
 
-@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun AppNavController() {
 
     val navController = rememberNavController()
     val dateViewModel: DateViewModel = viewModel()
-
     val exerciseRepository = ExerciseRepository(RetrofitInstance.api)
     val exerciseViewModel: ExerciseViewModel = viewModel(
         factory = ExerciseViewModelFactory(exerciseRepository)
