@@ -1,8 +1,6 @@
 package com.example.lazybone.main.ui.screens
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,7 +15,6 @@ import com.example.lazybone.main.ui.navigation.LocalDateViewModel
 import com.example.lazybone.main.ui.navigation.LocalWProgramViewModel
 import com.example.lazybone.main.ui.toolbars.MainTopBar
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(navController: NavController) {
 
@@ -30,8 +27,8 @@ fun MainScreen(navController: NavController) {
     val renderingProgram = programViewModel.getProgramByDate(selectedDate)
 
     Log.d("todayProgram", "$renderingProgram")
-    Log.d("todayProgram","today:$today")
-    Log.d("todayProgram","selectedDate:$selectedDate")
+    Log.d("todayProgram", "today:$today")
+    Log.d("todayProgram", "selectedDate:$selectedDate")
 
     Scaffold(topBar = { MainTopBar(navController) }) { innerPadding ->
         Column(
@@ -40,7 +37,7 @@ fun MainScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(innerPadding)
         ) {
-            DateSelector(navController,today,selectedDate)
+            DateSelector(navController, today, selectedDate)
             MainBody(navController, renderingProgram?.workouts ?: emptyList())
         }
 

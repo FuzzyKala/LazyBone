@@ -1,7 +1,5 @@
 package com.example.lazybone.main.ui.components.main
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -27,7 +25,6 @@ import com.example.lazybone.main.ui.navigation.NavRoutes
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DateSelector(
     navController: NavController,

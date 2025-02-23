@@ -1,8 +1,6 @@
 package com.example.lazybone.main.ui.components.main
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -15,7 +13,7 @@ import androidx.navigation.NavController
 import com.example.lazybone.R
 import com.example.lazybone.main.ui.components.exerciseDetails.Workout
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun MainBody(navController: NavController, workouts: List<Workout>) {
 

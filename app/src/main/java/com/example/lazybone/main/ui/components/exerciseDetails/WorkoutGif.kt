@@ -1,7 +1,5 @@
 package com.example.lazybone.main.ui.components.exerciseDetails
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +20,6 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.lazybone.main.api.ExerciseImage
 import kotlinx.coroutines.delay
 
-@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun WorkoutGif(imageUrls: List<ExerciseImage>) {
 

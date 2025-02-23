@@ -1,8 +1,6 @@
 package com.example.lazybone.main.ui.navigation
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
@@ -13,9 +11,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.lazybone.main.api.ExerciseRepository
-import com.example.lazybone.main.api.ExerciseViewModelFactory
-import com.example.lazybone.main.api.RetrofitInstance
 import com.example.lazybone.main.ui.screens.CalendarScreen
 import com.example.lazybone.main.ui.screens.ExerciseDetailScreen
 import com.example.lazybone.main.ui.screens.ExerciseListScreen
@@ -42,13 +37,8 @@ fun AppNavController() {
 
     val navController = rememberNavController()
     val dateViewModel: DateViewModel = viewModel()
-    val exerciseRepository = ExerciseRepository(RetrofitInstance.api)
-    val exerciseViewModel: ExerciseViewModel = viewModel(
-        factory = ExerciseViewModelFactory(exerciseRepository)
-    )
-
+    val exerciseViewModel: ExerciseViewModel = viewModel()
     val workoutViewModel: WorkoutViewModel = viewModel()
-
     val programViewModel: ProgramViewModel = viewModel()
 
     CompositionLocalProvider(

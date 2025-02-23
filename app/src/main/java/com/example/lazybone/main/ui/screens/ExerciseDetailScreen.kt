@@ -1,7 +1,5 @@
 package com.example.lazybone.main.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,8 +23,6 @@ import com.example.lazybone.main.ui.navigation.LocalWProgramViewModel
 import com.example.lazybone.main.ui.navigation.LocalWorkoutViewModel
 import com.example.lazybone.main.ui.toolbars.MainTopBar
 
-
-@RequiresApi(Build.VERSION_CODES.P)
 
 @Composable
 fun ExerciseDetailScreen(navController: NavController, exerciseId: String) {
