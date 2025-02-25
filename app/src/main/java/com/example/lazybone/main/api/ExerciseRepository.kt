@@ -1,6 +1,7 @@
 package com.example.lazybone.main.api
 
 import android.util.Log
+import retrofit2.HttpException
 
 
 // Acts as a middle layer to abstract away the details of making API calls and managing data.
@@ -19,7 +20,7 @@ class ExerciseRepository(private val api: ExerciseApiService) {
             response.results
         } catch (e: Exception) {
             Log.e("ExerciseRepository", "API Call Failed: ${e.message}", e)
-            null
+            throw Exception("API Error: ${e.message}")
         }
     }
 
@@ -39,18 +40,21 @@ class ExerciseRepository(private val api: ExerciseApiService) {
             response.results
         } catch (e: Exception) {
             Log.e("ExerciseRepository", "API Call Failed: ${e.message}", e)
-            null
+            throw Exception("API Error: ${e.message}")
         }
     }
 
-    suspend fun fetchBodyPartList(): List<BodyPart>? {
+    suspend fun fetchBodyPartList(): ApiResult<List<BodyPart>> {
         return try {
             val response: WgerBodyPartResponse = api.getBodyParts()
             Log.d("ExerciseRepository", "Raw API Response: $response")
-            response.results
+            ApiResult.Success(response.results)
+        } catch (e: HttpException) {
+            Log.e("ExerciseRepository", "HTTP Error: ${e.code()} - ${e.message()}")
+            ApiResult.Error(e.code(), "HTTP Error: ${e.message()}")
         } catch (e: Exception) {
-            Log.e("ExerciseRepository", "API Call Failed: ${e.message}", e)
-            null
+            Log.e("ExerciseRepository", "API Call Failed: ${e.message}")
+            ApiResult.Error(-1, "Network Error: ${e.message}")
         }
     }
 }

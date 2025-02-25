@@ -1,8 +1,8 @@
 package com.example.lazybone.main.ui.viewModel
 
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lazybone.main.api.ApiResult
 import com.example.lazybone.main.api.BodyPart
 import com.example.lazybone.main.api.Exercise
 import com.example.lazybone.main.api.ExerciseImage
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 // Holds and manages UI data in a lifecycle-aware way.
 
 class ExerciseViewModel(private val repository: ExerciseRepository) :
-    ViewModel() {
+    BaseViewModel() {
 
     private val _exercises = MutableStateFlow<List<Exercise>>(emptyList())
     val exercises = _exercises.asStateFlow()
@@ -67,12 +67,22 @@ class ExerciseViewModel(private val repository: ExerciseRepository) :
 
     fun loadBodyParts() {
         viewModelScope.launch {
-            try {
-                val result: List<BodyPart>? = repository.fetchBodyPartList()
-                Log.d("ExerciseViewModel", "API Response: $result")
-                _bodyParts.value = result ?: emptyList()
-            } catch (e: Exception) {
-                Log.e("ExerciseViewModel", "API Error: ${e.message}")
+            clearError()
+            when (val result = repository.fetchBodyPartList()) {
+                is ApiResult.Success -> _bodyParts.value = result.data
+                is ApiResult.Error -> {
+                    val errorMessage = when (result.code) {
+                        400 -> "Bad Request - Invalid data"
+                        401 -> "Unauthorized - Please log in"
+                        403 -> "Forbidden - Access denied"
+                        404 -> "Not Found - Check the endpoint"
+                        500 -> "Server error - Try again later"
+                        -1 -> result.message
+                        else -> "Unexpected error: ${result.message}"
+                    }
+                    setError(errorMessage)
+                    Log.e("ExerciseViewModel", "API Error: $errorMessage")
+                }
             }
         }
     }
