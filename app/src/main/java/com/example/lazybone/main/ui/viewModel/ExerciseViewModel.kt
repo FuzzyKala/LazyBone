@@ -28,39 +28,62 @@ class ExerciseViewModel(private val repository: ExerciseRepository) :
 
     fun loadExercises(bodyPart: String) {
         viewModelScope.launch {
+            clearError()
             try {
                 val bodyPartsList = _bodyParts.value
 
                 if (bodyPartsList.isEmpty()) {
-                    Log.e("ExerciseViewModel", "Body parts not loaded yet!")
+                    val errorMsg = "Body parts not loaded yet!"
+                    Log.e("ExerciseViewModel", errorMsg)
+                    setError(errorMsg)
                     return@launch
                 }
+                when (val result = repository.fetchExercises(bodyPart, bodyPartsList)) {
+                    is ApiResult.Success -> _exercises.value = result.data
 
-                val result: List<Exercise>? = repository.fetchExercises(bodyPart, bodyPartsList)
-                Log.d("ExerciseViewModel", "API Response: $result")
-                _exercises.value = result ?: emptyList()
+                    is ApiResult.Error -> {
+                        val errorMsg = "Error ${result.code}: ${result.message}"
+                        Log.e("ExerciseViewModel", errorMsg)
+                        setError(errorMsg)
+                        _exercises.value = emptyList()
+                    }
+                }
             } catch (e: Exception) {
-                Log.e("ExerciseViewModel", "API Error: ${e.message}")
+                val errorMsg = "Unexpected API Error: ${e.message}"
+                Log.e("ExerciseViewModel", errorMsg)
+                setError(errorMsg)
+                _exercises.value = emptyList()
             }
         }
     }
 
     fun loadExerciseImages(exerciseId: Int) {
         viewModelScope.launch {
+
             try {
                 val exerciseList = _exercises.value
 
                 if (exerciseList.isEmpty()) {
-                    Log.e("ExerciseViewModel", "Exercises not loaded yet!")
+                    val errorMsg = "Exercises not loaded yet!"
+                    Log.e("ExerciseViewModel", errorMsg)
+                    setError(errorMsg)
                     return@launch
                 }
 
-                val result: List<ExerciseImage>? =
-                    repository.fetchExerciseImages(exerciseId, exerciseList)
-                Log.d("ExerciseViewModel", "API Response: $result")
-                _exerciseImages.value = result ?: emptyList()
+                when (val result = repository.fetchExerciseImages(exerciseId, exerciseList)) {
+                    is ApiResult.Success -> _exerciseImages.value = result.data
+                    is ApiResult.Error -> {
+                        val errorMsg = "Error ${result.code}: ${result.message}"
+                        Log.e("ExerciseViewModel", errorMsg)
+                        setError(errorMsg)
+                        _exerciseImages.value = emptyList()
+                    }
+                }
             } catch (e: Exception) {
-                Log.e("ExerciseViewModel", "API Error: ${e.message}")
+                val errorMsg = "Unexpected API Error: ${e.message}"
+                Log.e("ExerciseViewModel", errorMsg)
+                setError(errorMsg)
+                _exerciseImages.value = emptyList()
             }
         }
     }
@@ -68,21 +91,27 @@ class ExerciseViewModel(private val repository: ExerciseRepository) :
     fun loadBodyParts() {
         viewModelScope.launch {
             clearError()
-            when (val result = repository.fetchBodyPartList()) {
-                is ApiResult.Success -> _bodyParts.value = result.data
-                is ApiResult.Error -> {
-                    val errorMessage = when (result.code) {
-                        400 -> "Bad Request - Invalid data"
-                        401 -> "Unauthorized - Please log in"
-                        403 -> "Forbidden - Access denied"
-                        404 -> "Not Found - Check the endpoint"
-                        500 -> "Server error - Try again later"
-                        -1 -> result.message
-                        else -> "Unexpected error: ${result.message}"
+            try {
+                when (val result = repository.fetchBodyPartList()) {
+                    is ApiResult.Success -> _bodyParts.value = result.data
+                    is ApiResult.Error -> {
+                        val errorMessage = when (result.code) {
+                            400 -> "Bad Request - Invalid data"
+                            401 -> "Unauthorized - Please log in"
+                            403 -> "Forbidden - Access denied"
+                            404 -> "Not Found - Check the endpoint"
+                            500 -> "Server error - Try again later"
+                            -1 -> result.message
+                            else -> "Unexpected error: ${result.message}"
+                        }
+                        setError(errorMessage)
+                        Log.e("ExerciseViewModel", "API Error: $errorMessage")
                     }
-                    setError(errorMessage)
-                    Log.e("ExerciseViewModel", "API Error: $errorMessage")
                 }
+            } catch (e: Exception) {
+                val errorMsg = "Unexpected API Error: ${e.message}"
+                Log.e("ExerciseViewModel", errorMsg)
+                setError(errorMsg)
             }
         }
     }
